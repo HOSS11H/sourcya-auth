@@ -1,0 +1,34 @@
+import styled from 'styled-components';
+
+const SlideWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    padding-bottom: 61px;
+    img {
+        max-width: 100%;
+        height: 290px;
+        border-radius: 34px;
+        object-fit: cover;
+        margin-bottom: 9px;
+    }
+    h2 {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 37px;
+    }
+`
+
+const Slide = props => {
+    return (
+        <SlideWrapper>
+            <img src={props.imgSrc} alt='slide' />
+            <h2>{props.title}</h2>
+        </SlideWrapper>
+    )
+}
+export default Slide;
