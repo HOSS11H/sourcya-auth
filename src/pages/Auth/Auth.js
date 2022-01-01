@@ -1,11 +1,12 @@
-import { Button, Checkbox } from '@mui/material';
+import { Checkbox } from '@mui/material';
 import axios from '../../utils/axios-instance';
 import { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useForm from '../../hooks/useForm';
 import { loginForm, subscribeForm } from '../../utils/formConfig';
 import AuthContext from '../../store/auth-context';
+import { CustomButton } from '../../components/UI/Button/Button';
 
 const AuthlWrapper = styled.div`
     display: flex;
@@ -99,27 +100,17 @@ const CustomLabel = styled.label`
     cursor: pointer;
 `
 
-const CustomButton = styled(Button)`
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 145px;
-    height: 48px;
-    margin-top: 26px;
-    background: #333333;
-    font-size: 16px;
-    color: #fff;
-    text-transform: capitalize;
-    border-radius: 35px;
-`
-
 const Auth = props => {
 
     const authCtx = useContext(AuthContext);
 
+    const [searchParams] = useSearchParams();
+
+    const navedTo = searchParams.get('component');
+
     const { login } = authCtx;
 
-    const [isLogin, setIslogin] = useState(true)
+    const [isLogin, setIslogin] = useState(navedTo === 'login' ? true : false);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const [remeberUser, setRemeberUser] = useState(false);
@@ -155,6 +146,7 @@ const Auth = props => {
         setIslogin(prevState => !prevState)
         setErrorMessage(null)
     }
+
     const handleRemberUser = (e) => {
         setRemeberUser(e.target.checked)
     }
@@ -184,6 +176,7 @@ const Auth = props => {
             setErrorMessage(err.response.data.message[0].messages[0].message)
         })
     }
+
     const submitHandler = e => {
         e.preventDefault();
         if (isLogin) {
@@ -218,7 +211,7 @@ const Auth = props => {
                         </FormActions>
                     )}
                     {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-                    <CustomButton variant='contained' onClick={submitHandler} >{isLogin ? loginFormText.button : subscribeFormText.button}</CustomButton>
+                    <CustomButton bg='#333' variant='contained' onClick={submitHandler} >{isLogin ? loginFormText.button : subscribeFormText.button}</CustomButton>
                     <FormChange>
                             {isLogin ? loginFormText.formSwitchText : subscribeFormText.formSwitchText}
                         <button onClick={switchAuthModeHandler}>
