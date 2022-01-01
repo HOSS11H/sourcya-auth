@@ -20,6 +20,7 @@ const SlideWrapper = styled.div`
         font-size: 32px;
         font-weight: 400;
         line-height: 37px;
+        color: #000000;
     }
 `
 

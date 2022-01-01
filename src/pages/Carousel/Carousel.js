@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 
 import  slideImg from '../../images/slider-image-1.png';
 import styled from 'styled-components';
-import Slide from '../Slide/Slide';
+import Slide from '../../components/Slide/Slide';
 
 const CarouselWrapper = styled.div`
     display: flex;
